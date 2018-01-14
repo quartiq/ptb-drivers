@@ -10,7 +10,7 @@ setup(
     version="0.1",
     description="Driver for PTB hardware used in opticlock (synthesizer, "
         "temperature measurement, amplifier, shutter driver, voltage source, "
-        "current source)"
+        "current source)",
     long_description=open("README.rst").read(),
     author="Robert Jördens",
     author_email="rj@quartiq.de",
