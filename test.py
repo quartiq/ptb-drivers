@@ -6,14 +6,19 @@ import timeit
 from ptb.tcp import SynthTCP as Synth
 
 """
-FIXMES:
+FIXMEs:
 
 hardware:
-    * signal AFE to uC by pins (x2, x3 etc)
+    * signal AFE to uC by pins (x2, x3, output amp etc)
 firmware:
-    * readback of registers
+    * readback locked status (muxout)
     * framing of commands (don't wait for eop but eol)
-    * consistent replies
+    * consistent replies (framing)
+    * mac address
+    * dhcp
+    * return ID (serial, mac address), together with AFE type
+driver:
+    * protocol -> synth/protocol etc in prep for other devices
 """
 
 

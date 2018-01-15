@@ -7,6 +7,7 @@ logger = logging.getLogger(__name__)
 
 
 class SynthProtocol(ADF4350):
+    """Protocol for the PTB synthesizer (ADF4350-based)"""
     poll_interval = .01
 
     def do(self, cmd):
