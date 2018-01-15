@@ -184,25 +184,26 @@ class ADF4350:
         n_int = int(n_int)
         n_int_min = 75 if prescaler_en else 23
         assert n_int_min <= n_int <= 1 << 16
-        logger.info("N divider integer value %i", n_int)
+        logger.info("N divider integral part %i", n_int)
         logger.info("N divider fractional part %g MHz", df/1e6)
         if df:
-            n_rat = Fraction(df/f_pfd)
-            logger.info("N divider fraction %s", n_rat)
             if self.channel_spacing:
-                n_rat = n_rat.limit_denominator(
-                        int(f_pfd/self.channel_spacing))
-            n_rat = n_rat.limit_denominator(self.max_modulus)
-            logger.info("N divider limited fraction %s", n_rat)
-            logger.info("frequency error %g Hz", n_rat*f_pfd - df)
-            n_fract, n_mod = n_rat.numerator, n_rat.denominator
-            logger.info("N divider modulus %i", n_mod)
-            logger.info("N divider fractional part %i", n_fract)
-            logger.info("actual fractional channel spacing %g MHz",
-                    f_pfd/n_mod)
+                n_mod = int(round(f_pfd/self.channel_spacing))
+                while n_mod > self.max_modulus:
+                    n_mod //= 2
+                n_fract = int(round(df/f_pfd*n_mod))
+            else:
+                n_rat = Fraction(df/f_pfd)
+                logger.info("N divider fraction %s", n_rat)
+                n_rat = n_rat.limit_denominator(self.max_modulus)
+                n_fract, n_mod = n_rat.numerator, n_rat.denominator
+            logger.info("N divider fract/mod %i/%i", n_fract, n_mod)
+            logger.info("channel spacing %g kHz", f_pfd/n_mod/1e3)
+            logger.info("frequency error %g Hz", f_pfd*n_fract/n_mod - df)
         else:
             n_fract = 0
             n_mod = 1
+        assert 1 <= n_mod <= self.max_modulus
         assert 0 <= n_fract < n_mod
         if n_mod > 1:
             assert not self.lock_detect_function_integer_n_en
@@ -255,7 +256,7 @@ class ADF4350:
 
         self._regs[5] |= self.reg5_ld_pin_mode_digital | 0x00180000
 
-        return self._f_pfd(r_cnt)*(n_int + n_fract/n_mod)/(1 << rf_div_sel)
+        return f_pfd*(n_int + n_fract/n_mod)/(1 << rf_div_sel)
 
 
 if __name__ == "__main__":
@@ -266,7 +267,9 @@ if __name__ == "__main__":
     a.ref_div2_en = False
     a.ref_doubler_en = True
 
-    print(a.set_frequency(2e9)) # + .1234567e3))
+    f = 2e9
+    f += 432.1234567e3
+    print(a.set_frequency(f))
 
     print(["{:#010x}".format(r) for r in reversed(a._regs)])
     print(["{:#010x}".format(r) for r in reversed([
