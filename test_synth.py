@@ -3,7 +3,7 @@ import logging
 import asyncio
 import timeit
 
-from ptb.tcp import SynthTCP as Synth
+from ptb.synth_tcp import SynthTCP as Synth
 
 """
 FIXMEs:

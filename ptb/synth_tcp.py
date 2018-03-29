@@ -1,6 +1,6 @@
 import asyncio
 
-from .protocol import SynthProtocol
+from .synth_protocol import SynthProtocol
 
 
 class SynthTCP(SynthProtocol):
