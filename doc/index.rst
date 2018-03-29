@@ -7,16 +7,19 @@ Contents:
    :maxdepth: 2
 
 
-:mod:`ptb.protocol` module
+Synthesizer
++++++++++++
+
+:mod:`ptb.synth_protocol` module
 -----------------------------------
 
-.. automodule:: ptb.protocol
+.. automodule:: ptb.synth_protocol
     :members:
 
-:mod:`ptb.tcp` module
+:mod:`ptb.synth_tcp` module
 ------------------------------
 
-.. automodule:: ptb.tcp
+.. automodule:: ptb.synth_tcp
     :members:
 
 :mod:`ptb.adf4350` module
@@ -24,6 +27,23 @@ Contents:
 
 .. automodule:: ptb.adf4350
     :members:
+
+
+Temperature Sensor
+++++++++++++++++++
+
+:mod:`ptb.temp_protocol` module
+-----------------------------------
+
+.. automodule:: ptb.temp_protocol
+    :members:
+
+:mod:`ptb.temp_tcp` module
+------------------------------
+
+.. automodule:: ptb.temp_tcp
+    :members:
+
 
 Indices and tables
 ==================

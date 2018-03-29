@@ -32,7 +32,7 @@ class SynthProtocol(ADF4350):
             str: Version string.
         """
         self.do("version")
-        return self.read(7).strip()
+        return (await self.read(7)).strip()
 
     def _fmt_regs(self, regs):
         return "{:08x}{:08x}{:08x}{:08x}{:08x}{:08x}".format(*regs)
