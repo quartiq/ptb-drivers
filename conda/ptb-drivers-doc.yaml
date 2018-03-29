@@ -8,6 +8,6 @@ channels:
   - defaults
 dependencies:
   - python>=3.5.3
-  - sphinx
+  - sphinx=1.4.8
   - sphinx-argparse
   - sphinx_rtd_theme
