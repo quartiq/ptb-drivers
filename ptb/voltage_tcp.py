@@ -1,11 +1,11 @@
 import asyncio
 
-from .temp_protocol import TempProtocol
+from .voltage_protocol import VoltageProtocol
 
 
-class TempTCP(TempProtocol):
-    eol_write = b"\r"
-    eol_read = b"\r\n"
+class VoltageTCP(VoltageProtocol):
+    eol_write = b"\n"
+    eol_read = b"\n"
 
     def __init__(self, reader, writer):
         self._reader = reader
