@@ -20,7 +20,7 @@ def main():
     loop = asyncio.get_event_loop()
     loop.set_debug(False)
     async def run():
-        with await Temp.connect("10.32.4.156") as dev:  # piquet
+        with await Temp.connect("piquet") as dev:
             await test(dev)
     loop.run_until_complete(run())
 
