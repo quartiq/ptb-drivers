@@ -11,12 +11,16 @@ async def test(dev):
     print(await dev.version())
     print(await dev.ping())
     print(await dev.get_temperature())
-    t0 = time.time()
-    for i in range(2):
-        print(await dev.set_voltage([100, -123.45, 5.0], [1, 4, 7]))
-        print(await dev.set_ldac())
-    print((time.time() - t0)/2)
+    print(await dev.factory())
+    print(await dev.set_voltage([100, -123.45, 5.0], [1, 4, 7]))
+    print(await dev.ldac())
     print(await dev.get_data())
+    print(await dev.set_gain([218.45, 3276.7], [1, 7]))
+    print(await dev.set_offset([10, 10], [1, 7]))
+    print(await dev.set_voltage([100, -123.45, 5.0], [1, 4, 7]))
+    print(await dev.ldac())
+    print(await dev.get_data())
+    print(await dev.factory())
 
 def main():
     logging.basicConfig(level=logging.INFO)
