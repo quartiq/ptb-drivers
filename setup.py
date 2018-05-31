@@ -20,7 +20,9 @@ setup(
     install_requires=[],
     entry_points={
         "console_scripts": [
-            # "aqctl_ptb_synth = ptb.aqctl_ptb_synth:main",
+            "aqctl_ptb_synth = ptb.aqctl_ptb_synth:main",
+            "aqctl_ptb_voltage = ptb.aqctl_ptb_voltage:main",
+            "aqctl_ptb_temp = ptb.aqctl_ptb_temp:main",
         ],
     },
     test_suite="ptb.test",
