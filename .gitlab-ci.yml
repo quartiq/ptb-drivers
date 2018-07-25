@@ -4,5 +4,6 @@ conda:
   tags:
     - docker
   script:
+    - conda install -n base conda-build
     - conda list
     - conda --anaconda-upload build -c m-labs -c conda-forge -t $ANACONDA_TOKEN -u quartiq conda
