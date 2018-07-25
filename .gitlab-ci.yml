@@ -1,0 +1,8 @@
+conda:
+  stage: deploy
+  image: continuumio/miniconda3:latest
+  tags:
+    - docker
+  script:
+    - conda list
+    - conda --anaconda-upload build -c m-labs -c conda-forge -t $ANACONDA_TOKEN -u quartiq conda
