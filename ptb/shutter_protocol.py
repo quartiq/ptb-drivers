@@ -35,7 +35,7 @@ class ShutterProtocol:
         Returns:
             list(float): Temperatures on all channels
         """
-        ret = (await self.ask(b"e", 3)).strip()
+        ret = (await self.ask(b"e")).strip()
         return tuple(bool(int(_)) for _ in ret)
 
     def clear(self):
@@ -52,4 +52,4 @@ class ShutterProtocol:
         Return:
             bytes: Response
         """
-        return await self.ask("{:d}".encode() + cmd)
+        return await self.ask(bytes(["{:d}".format(shutter).encode(), cmd]))
