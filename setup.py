@@ -23,6 +23,7 @@ setup(
             "aqctl_ptb_synth = ptb.aqctl_ptb_synth:main",
             "aqctl_ptb_voltage = ptb.aqctl_ptb_voltage:main",
             "aqctl_ptb_temp = ptb.aqctl_ptb_temp:main",
+            "aqctl_ptb_shutter = ptb.aqctl_ptb_shutter:main",
         ],
     },
     test_suite="ptb.test",

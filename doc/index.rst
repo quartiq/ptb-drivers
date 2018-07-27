@@ -61,6 +61,22 @@ Voltage Source
     :members:
 
 
+Shutter Controller
+++++++++++++++++++
+
+:mod:`ptb.shutter_protocol` module
+----------------------------------
+
+.. automodule:: ptb.shutter_protocol
+    :members:
+
+:mod:`ptb.shutter_tcp` module
+-----------------------------
+
+.. automodule:: ptb.shutter_tcp
+    :members:
+
+
 Indices and tables
 ==================
 

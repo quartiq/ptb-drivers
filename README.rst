@@ -28,3 +28,5 @@ Also high voltage source and current source
 
 Temperature sensor module
 -------------------------
+
+Multichannel temperature sensor
