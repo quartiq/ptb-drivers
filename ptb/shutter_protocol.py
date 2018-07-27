@@ -12,15 +12,14 @@ class ShutterProtocol:
         logger.debug("do %s", cmd)
         self._writeline(cmd)
 
-    async def ask(self, cmd):
+    async def ask(self, cmd, n=None):
         self.do(cmd)
-        ret = await self._readline()
+        if n is None:
+            ret = await self._readline()
+        else:
+            ret = await self._read(n)
         logger.debug("ret %s", ret)
         return ret
-
-    async def read(self, n):
-        ret = await self._read(n)
-        return ret.decode()
 
     async def version(self):
         """Return the hardware/firmware version.
@@ -36,8 +35,7 @@ class ShutterProtocol:
         Returns:
             list(float): Temperatures on all channels
         """
-        ret = (await self.ask(b"e")).strip()
-        assert len(ret) == 3
+        ret = (await self.ask(b"e", 3)).strip()
         return tuple(bool(int(_)) for _ in ret)
 
     def clear(self):

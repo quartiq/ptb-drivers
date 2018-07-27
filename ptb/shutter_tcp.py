@@ -4,7 +4,7 @@ from .shutter_protocol import ShutterProtocol
 
 
 class ShutterTCP(ShutterProtocol):
-    eol_write = b"\r"
+    eol_write = b"\r\n"
     eol_read = b"\r"
 
     def __init__(self, reader, writer):
@@ -29,8 +29,9 @@ class ShutterTCP(ShutterProtocol):
         self._writer.write(cmd + self.eol_write)
 
     async def _readline(self):
-        r = await self._reader.readline()
-        assert r.endswith(self.eol_read)
+        r = b""
+        while not r.endswith(self.eol_read):
+            r += await self._reader.read(1)
         return r[:-len(self.eol_read)]
 
     async def _read(self, n):
