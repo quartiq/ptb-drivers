@@ -52,4 +52,4 @@ class ShutterProtocol:
         Return:
             bytes: Response
         """
-        return await self.ask(bytes(["{:d}".format(shutter).encode(), cmd]))
+        return await self.ask(bytes(["{:d}".format(shutter).encode()[0], cmd]))
