@@ -10,7 +10,7 @@ async def test(dev):
     print(dev)
     print(await dev.status())
     print(await dev.version())
-    for i in b"TWXYZ":
+    for i in b"WZ":  # STWXYZ
         print(i, await dev.passthrough(1, i))
 
 def main():

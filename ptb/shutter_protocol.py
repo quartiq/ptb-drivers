@@ -33,7 +33,8 @@ class ShutterProtocol:
         """Return the error flags on all channels.
 
         Returns:
-            list(float): Temperatures on all channels
+            tuple(bool): Error flag on all channels.
+                `True` means that there is an error.
         """
         ret = (await self.ask(b"e")).strip()
         return tuple(bool(int(_)) for _ in ret)
