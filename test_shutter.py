@@ -9,12 +9,13 @@ from ptb.shutter_tcp import ShutterTCP as Shutter
 async def test(dev):
     print(dev)
     print(await dev.status())
+    print(await dev.clear())
     print(await dev.version())
     for i in b"WZ":  # STWXYZ
-        print(i, await dev.passthrough(1, i))
+        print(chr(i), await dev.passthrough(1, i))
 
 def main():
-    logging.basicConfig(level=logging.DEBUG)
+    #logging.basicConfig(level=logging.DEBUG)
     loop = asyncio.get_event_loop()
     loop.set_debug(False)
     async def run():

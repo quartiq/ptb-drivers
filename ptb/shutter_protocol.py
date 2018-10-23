@@ -37,11 +37,17 @@ class ShutterProtocol:
                 `True` means that there is an error.
         """
         ret = (await self.ask(b"e")).strip()
-        return tuple(bool(int(_)) for _ in ret)
+        return tuple(c != b"0"[0] for c in ret)
 
-    def clear(self):
-        """Clear all error flags."""
-        self.do(b"r")
+    async def clear(self):
+        """Clear all error flags.
+        
+        Returns:
+            tuple(bool): Error flag on all channels after clearing.
+                `True` means that there is an error.
+        """
+        ret = (await self.ask(b"r")).strip()
+        return tuple(c != b"0"[0] for c in ret)
 
     async def passthrough(self, shutter, cmd):
         """Execute a low level command.
