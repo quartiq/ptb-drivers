@@ -29,6 +29,16 @@ class ShutterProtocol:
         """
         return (await self.ask(b"v")).strip()
 
+    async def ping(self):
+        try:
+            await self.version()
+        except asyncio.CancelledError:
+            raise
+        except:
+            logger.warning("ping failed", exc_info=True)
+            return False
+        return True
+
     async def status(self):
         """Return the error flags on all channels.
 
