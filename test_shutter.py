@@ -11,7 +11,7 @@ async def test(dev):
     print(await dev.status())
     print(await dev.clear())
     print(await dev.version())
-    for i in b"WZ":  # STWXYZ
+    for i in b"":  # STWXYZ
         print(chr(i), await dev.passthrough(1, i))
 
 def main():
@@ -19,8 +19,11 @@ def main():
     loop = asyncio.get_event_loop()
     loop.set_debug(False)
     async def run():
-        with await Shutter.connect("buemi") as dev:
-            await test(dev)
+        for d in "palmer button".split():
+            print(d)
+            with await Shutter.connect(d) as dev:
+                await test(dev)
+
     loop.run_until_complete(run())
 
 
