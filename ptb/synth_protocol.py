@@ -25,6 +25,24 @@ class SynthProtocol(ADF4350):
         ret = await self._read(n)
         return ret.decode()
 
+    def set(self, **kwargs):
+        """Configure synthesizer settings.
+
+        See datasheet and :class:`ADF4350` for fields and values.
+
+        This does not update the synthesizer settings or registers.
+        This method only sets instance attributes that affect the
+        calculation of register values during :meth:`set_frequency`.
+        """
+        for k, v in kwargs.items():
+            if not hasattr(self, k):
+                raise ValueError("No such field `{}`".format(k))
+            setattr(self, k, v)
+
+    def get(self, key):
+        """Get a synthesizer configuration setting (instance attribute)."""
+        return getattr(self, key)
+
     async def version(self):
         """Return the hardware/firmware version.
 
@@ -73,6 +91,11 @@ class SynthProtocol(ADF4350):
             raise ValueError("save failed", ret)
 
     async def locked(self):
+        """Return the reference lock status.
+
+        Returns:
+            bool: True if locked
+        """
         return not "not" in await self.ask("locked")
 
     def _writeline(self, cmd):
