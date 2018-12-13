@@ -4,7 +4,7 @@ from .synth_protocol import SynthProtocol
 
 
 class SynthTCP(SynthProtocol):
-    eol_write = b"\r"
+    eol_write = b"\n"
     eol_read = b"\n"
 
     def __init__(self, reader, writer):
@@ -26,7 +26,7 @@ class SynthTCP(SynthProtocol):
         self._writer.close()
 
     def _writeline(self, cmd):
-        self._writer.write(cmd.encode()) #  + self.eol_write)
+        self._writer.write(cmd.encode() + self.eol_write)
 
     async def _readline(self):
         r = await self._reader.readline()

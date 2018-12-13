@@ -50,7 +50,7 @@ class SynthProtocol(ADF4350):
         cmd = "start{}".format(self._fmt_regs(regs))
         assert len(cmd) == 5 + 6*8
         self.do(cmd)
-        ret = await self.read(4).strip()
+        ret = (await self.read(4)).strip()
         if ret != "ok":
             raise ValueError("start failed", ret)
 
@@ -71,6 +71,9 @@ class SynthProtocol(ADF4350):
         ret = await self.read(4).strip()
         if ret != "ok":
             raise ValueError("save failed", ret)
+
+    async def locked(self):
+        return not "not" in await self.ask("locked")
 
     def _writeline(self, cmd):
         raise NotImplemented
