@@ -47,7 +47,7 @@ def main():
                 dev.ref_div2_en = False
                 dev.ref_doubler_en = False
                 dev.mute_till_lock_en = True
-                dev.output_power = 0
+                dev.output_power = 3
                 dev.set_frequency([3.07e9, 5.257e9/2, 14.748e9/6, 2.105e9][i])
                 await dev.start()
                 print(await dev.locked())
