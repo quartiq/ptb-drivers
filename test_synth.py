@@ -17,8 +17,6 @@ firmware:
     * mac address
     * dhcp
     * return ID (serial, mac address), together with AFE type
-driver:
-    * protocol -> synth/protocol etc in prep for other devices
 """
 
 
@@ -50,7 +48,7 @@ def main():
                 dev.ref_doubler_en = False
                 dev.mute_till_lock_en = True
                 dev.output_power = 0
-                dev.set_frequency([3.07e9, 5.257e9/2, 14.748e9/5, 2.105e9][i])
+                dev.set_frequency([3.07e9, 5.257e9/2, 14.748e9/6, 2.105e9][i])
                 await dev.start()
                 print(await dev.locked())
     loop.run_until_complete(run())
