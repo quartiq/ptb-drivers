@@ -1,6 +1,10 @@
 PTB hardware drivers for opticlock
 ==================================
 
+.. image:: https://gitlab.com/quartiq/ptb-drivers/badges/master/pipeline.svg
+    :target: https://gitlab.com/quartiq/ptb-drivers/commits/master
+    :alt: CI/CD Pipeline Status
+
 .. image:: https://readthedocs.org/projects/ptb-drivers/badge/?version=latest
     :target: http://ptb-drivers.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
