@@ -70,7 +70,7 @@ class VoltageProtocol:
         """Reset gains and offsets to default values"""
         return self._cmd("set", "factory")
 
-    async def _values(self, action, name, values, channels=None, conv=float):
+    async def _values(self, action, name, values, channels=None):
         if channels is None:
             channels = list(range(1, len(values) + 1))
         args = " ".join("{} {}".format(channel, value)
@@ -82,7 +82,7 @@ class VoltageProtocol:
         n = int(v.pop(0))
         assert len(v) == 2*n
         channels_ret = [int(_) for _ in v[::2]]
-        values_ret = [conv(_) for _ in v[1::2]]
+        values_ret = v[1::2]
         assert channels_ret == channels
         # assert values_ret == values
         return values_ret, channels_ret
@@ -98,7 +98,10 @@ class VoltageProtocol:
         Returns:
             list(float): Actual values returned by the device.
         """
-        return self._values("set", "volt", values, channels, float)
+        values = ["{:.4f}".format(_) for _ in values]
+        values, channels = self._values("set", "volt", values, channels)
+        values = [float(_) for _ in values]
+        return values, channels
 
     def set_gain(self, values, channels=None):
         """Set channel gains. Channel gains are processed within the
@@ -115,7 +118,10 @@ class VoltageProtocol:
         Returns:
             list(float): Actual values returned by the device.
         """
-        return self._values("set", "gain", values, channels, float)
+        values = ["{:.4f}".format(_) for _ in values]
+        values, channels = self._values("set", "gain", values, channels)
+        values = [float(_) for _ in values]
+        return values, channels
 
     def set_offset(self, values, channels=None):
         """Set channel offsets. Channel gains are processed within the
@@ -131,7 +137,10 @@ class VoltageProtocol:
         Returns:
             list(int): Actual values returned by the device.
         """
-        return self._values("set", "offset", values, channels, int)
+        values = ["{:d}".format(_) for _ in values]
+        values, channels = self._values("set", "offset", values, channels)
+        values = [int(_) for _ in values]
+        return values, channels
 
     def set_data(self, values, channels=None):
         """Set raw channel output values. Values are given in DAC LSBs
@@ -144,7 +153,10 @@ class VoltageProtocol:
         Returns:
             list(int): Actual values returned by the device.
         """
-        return self._values("set", "data", values, channels, int)
+        values = ["{:d}".format(_) for _ in values]
+        values, channels = self._values("set", "data", values, channels)
+        values = [int(_) for _ in values]
+        return values, channels
 
     def get_data(self, channels=None):
         """Get raw channel output values. Values are given in DAC LSBs
@@ -158,5 +170,7 @@ class VoltageProtocol:
         """
         if channels is None:
             channels = list(range(1, 8 + 1))
-        values = [0 for i in range(len(channels))]
-        return self._values("get", "data", values, channels, int)
+        values = ["0" for i in range(len(channels))]
+        values, channels = self._values("get", "data", values, channels)
+        values = [int(_) for _ in values]
+        return values, channels
