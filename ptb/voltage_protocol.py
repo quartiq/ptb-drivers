@@ -87,7 +87,7 @@ class VoltageProtocol:
         # assert values_ret == values
         return values_ret, channels_ret
 
-    def set_voltage(self, values, channels=None):
+    async def set_voltage(self, values, channels=None):
         """Set output voltages. Voltages become active only after
         :meth:`ldac`.
 
@@ -99,11 +99,11 @@ class VoltageProtocol:
             list(float): Actual values returned by the device.
         """
         values = ["{:.4f}".format(_) for _ in values]
-        values, channels = self._values("set", "volt", values, channels)
+        values, channels = await self._values("set", "volt", values, channels)
         values = [float(_) for _ in values]
         return values, channels
 
-    def set_gain(self, values, channels=None):
+    async def set_gain(self, values, channels=None):
         """Set channel gains. Channel gains are processed within the
         microcontroller and become active on :meth:`set_volt` and a subsequent
         :meth:`ldac`.
@@ -119,11 +119,11 @@ class VoltageProtocol:
             list(float): Actual values returned by the device.
         """
         values = ["{:.4f}".format(_) for _ in values]
-        values, channels = self._values("set", "gain", values, channels)
+        values, channels = await self._values("set", "gain", values, channels)
         values = [float(_) for _ in values]
         return values, channels
 
-    def set_offset(self, values, channels=None):
+    async def set_offset(self, values, channels=None):
         """Set channel offsets. Channel gains are processed within the
         microcontroller and become active on :meth:`set_volt` and a subsequent
         :meth:`ldac`.
@@ -138,11 +138,11 @@ class VoltageProtocol:
             list(int): Actual values returned by the device.
         """
         values = ["{:d}".format(_) for _ in values]
-        values, channels = self._values("set", "offset", values, channels)
+        values, channels = await self._values("set", "offset", values, channels)
         values = [int(_) for _ in values]
         return values, channels
 
-    def set_data(self, values, channels=None):
+    async def set_data(self, values, channels=None):
         """Set raw channel output values. Values are given in DAC LSBs
         (integers). Data becomes active only after :meth:`ldac`.
 
@@ -154,11 +154,11 @@ class VoltageProtocol:
             list(int): Actual values returned by the device.
         """
         values = ["{:d}".format(_) for _ in values]
-        values, channels = self._values("set", "data", values, channels)
+        values, channels = await self._values("set", "data", values, channels)
         values = [int(_) for _ in values]
         return values, channels
 
-    def get_data(self, channels=None):
+    async def get_data(self, channels=None):
         """Get raw channel output values. Values are given in DAC LSBs
         (integers).
 
@@ -171,6 +171,6 @@ class VoltageProtocol:
         if channels is None:
             channels = list(range(1, 8 + 1))
         values = ["0" for i in range(len(channels))]
-        values, channels = self._values("get", "data", values, channels)
+        values, channels = await self._values("get", "data", values, channels)
         values = [int(_) for _ in values]
         return values, channels
