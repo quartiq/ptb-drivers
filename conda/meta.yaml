@@ -22,7 +22,6 @@ requirements:
     - setuptools
   run:
     - python >=3.5.3
-    - artiq
 
 test:
   imports:
@@ -30,10 +29,6 @@ test:
     - ptb.voltage_tcp
     - ptb.synth_tcp
     - ptb.shutter_tcp
-    - ptb.aqctl_ptb_temp
-    - ptb.aqctl_ptb_voltage
-    - ptb.aqctl_ptb_synth
-    - ptb.aqctl_ptb_shutter
 
 about:
   home: https://github.com/quartiq/ptb-drivers
