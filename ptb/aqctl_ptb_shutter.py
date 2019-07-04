@@ -8,8 +8,12 @@ import asyncio
 from .shutter_tcp import ShutterTCP as Shutter
 
 from artiq.protocols.pc_rpc import Server
-from artiq.tools import (verbosity_args, simple_network_args, init_logger,
+from artiq.tools import (simple_network_args, init_logger,
                          bind_address_from_args)
+try:
+    from artiq.tools import verbosity_args
+except ImportError:
+    from artiq.tools import add_common_args as verbosity_args
 
 
 logger = logging.getLogger(__name__)
