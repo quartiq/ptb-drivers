@@ -7,13 +7,12 @@ import asyncio
 
 from .voltage_tcp import VoltageTCP as Voltage
 
-from artiq.protocols.pc_rpc import Server
-from artiq.tools import (simple_network_args, init_logger,
-                         bind_address_from_args)
-try:
-    from artiq.tools import verbosity_args
-except ImportError:
-    from artiq.tools import add_common_args as verbosity_args
+from sipyco.pc_rpc import Server
+from sipyco import common_args
+
+from sipyco.common_args import (
+    simple_network_args, init_logger_from_args as init_logger,
+    bind_address_from_args, verbosity_args)
 
 
 logger = logging.getLogger(__name__)
